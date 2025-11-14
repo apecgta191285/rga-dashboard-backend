@@ -1,0 +1,38 @@
+import { ApiProperty } from '@nestjs/swagger';
+import { IsString, IsNotEmpty, IsEnum, IsNumber, IsOptional, IsDateString } from 'class-validator';
+
+export class CreateCampaignDto {
+  @ApiProperty({ example: 'Summer Sale 2024' })
+  @IsString()
+  @IsNotEmpty()
+  name: string;
+
+  @ApiProperty({ enum: ['GOOGLE_ADS', 'FACEBOOK_ADS', 'TIKTOK_ADS', 'LINE_ADS', 'SHOPEE', 'LAZADA'] })
+  @IsEnum(['GOOGLE_ADS', 'FACEBOOK_ADS', 'TIKTOK_ADS', 'LINE_ADS', 'SHOPEE', 'LAZADA'])
+  platform: string;
+
+  @ApiProperty({ enum: ['ACTIVE', 'PAUSED', 'ENDED'], example: 'ACTIVE' })
+  @IsEnum(['ACTIVE', 'PAUSED', 'ENDED'])
+  @IsOptional()
+  status?: string;
+
+  @ApiProperty({ example: 5000 })
+  @IsNumber()
+  @IsOptional()
+  budget?: number;
+
+  @ApiProperty({ example: '2024-01-01', required: false })
+  @IsDateString()
+  @IsOptional()
+  startDate?: string;
+
+  @ApiProperty({ example: '2024-12-31', required: false })
+  @IsDateString()
+  @IsOptional()
+  endDate?: string;
+
+  @ApiProperty({ example: 'google_ads_campaign_123', required: false })
+  @IsString()
+  @IsOptional()
+  externalId?: string;
+}
